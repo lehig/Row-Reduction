@@ -22,6 +22,11 @@ frontend/.pnp
 frontend/.pnp.js
 frontend/coverage/
 
+# Environment variables
+frontend/.env
+frontend/.env.local
+frontend/.env.production
+
 # IDE
 .vscode/
 .idea/

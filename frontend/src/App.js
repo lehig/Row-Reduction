@@ -77,7 +77,9 @@ function App() {
     setError(null);
     
     try {
-      const response = await fetch('/api/rref', {
+      // Use environment variable for API URL, fallback to proxy for local development
+      const apiUrl = process.env.REACT_APP_API_URL || '/api/rref';
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

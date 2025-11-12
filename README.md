@@ -252,11 +252,37 @@ The project uses Go build tags to separate Lambda and HTTP server code:
 
 This allows the same codebase to be used for both local development and Lambda deployment.
 
+## GitHub Pages Deployment
+
+The frontend can be deployed to GitHub Pages while using AWS Lambda for the backend API.
+
+### Quick Setup
+
+1. **Deploy your Lambda function** to AWS (see [AWS Lambda Deployment](#aws-lambda-deployment))
+2. **Get your API Gateway URL** from AWS
+3. **Enable GitHub Pages** in your repository settings (Settings → Pages → Source: GitHub Actions)
+4. **Configure the API URL**:
+   - Option A: Add `REACT_APP_API_URL` as a GitHub Secret with your API Gateway URL
+   - Option B: Edit `.github/workflows/deploy-pages.yml` and set the API URL directly
+5. **Push to main branch** - GitHub Actions will automatically build and deploy
+
+See [GITHUB_PAGES_SETUP.md](GITHUB_PAGES_SETUP.md) for detailed instructions.
+
+### How It Works
+
+- **Frontend**: Static React app deployed to GitHub Pages
+- **Backend**: AWS Lambda function (deployed separately)
+- **API Communication**: Frontend calls Lambda via API Gateway URL
+- **Local Development**: Uses proxy to `localhost:8080` when `REACT_APP_API_URL` is not set
+
 ## Technologies
 
 - **Backend**: Go (Golang) - Deployable as AWS Lambda (ARM64) or HTTP server
-- **Frontend**: React
+- **Frontend**: React - Deployable to GitHub Pages or any static hosting
 - **No external math libraries** - all calculations are implemented manually
-- **Deployment**: AWS Lambda with API Gateway (optional)
+- **Deployment**: 
+  - Backend: AWS Lambda with API Gateway
+  - Frontend: GitHub Pages (or any static hosting)
 - **Testing**: Comprehensive test suite with Go's testing framework
+- **CI/CD**: GitHub Actions for automated deployment
 
