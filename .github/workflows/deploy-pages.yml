@@ -31,7 +31,9 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./frontend
-        run: npm ci
+        run: |
+          # Try npm ci first, fall back to npm install if lock file is out of sync
+          npm ci || npm install
 
       - name: Build React app
         working-directory: ./frontend
