@@ -54,15 +54,26 @@ To test with your Lambda API:
 
 ### CORS Issues
 
-If you see CORS errors, make sure:
-1. Your Lambda function includes CORS headers (it should - check `backend/main.go`)
-2. API Gateway is configured to allow CORS
+If you see CORS errors, check:
+
+1. **API URL includes full path**: 
+   - ❌ Wrong: `https://abc123.execute-api.us-east-1.amazonaws.com/dev`
+   - ✅ Correct: `https://abc123.execute-api.us-east-1.amazonaws.com/dev/api/rref`
+
+2. **API Gateway CORS Configuration**:
+   - Go to API Gateway Console
+   - Enable CORS on your `/api/rref` resource
+   - Make sure OPTIONS method is configured
+   - **Deploy your API** after making CORS changes
+
+3. **See [CORS_TROUBLESHOOTING.md](CORS_TROUBLESHOOTING.md) for detailed instructions**
 
 ### API Not Working
 
-1. Verify your API Gateway URL is correct
+1. Verify your API Gateway URL includes the full path: `/dev/api/rref` or `/Prod/api/rref`
 2. Test the API directly using curl or Postman
 3. Check browser console for error messages
+4. Verify the GitHub Secret `REACT_APP_API_URL` has the complete URL
 
 ## Notes
 

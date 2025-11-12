@@ -79,6 +79,11 @@ function App() {
     try {
       // Use environment variable for API URL, fallback to proxy for local development
       const apiUrl = process.env.REACT_APP_API_URL || '/api/rref';
+      
+      if (!apiUrl) {
+        throw new Error('API URL is not configured');
+      }
+      
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
